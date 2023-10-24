@@ -1,0 +1,84 @@
+{% extends "./Base/base.html" %}
+{% load static %}
+{% block content %}
+  <!-- BEGIN: Main Menu-->
+  <div class="horizontal-menu-wrapper">
+    <div class="header-navbar navbar-expand-sm navbar navbar-horizontal floating-nav navbar-dark navbar-without-dd-arrow navbar-shadow menu-border" role="navigation" data-menu="menu-wrapper">
+        <div class="navbar-header">
+            <ul class="nav navbar-nav flex-row">
+                <li class="nav-item mr-auto"><a class="navbar-brand" href="#">
+                        <div class="brand-logo"></div>
+                        <h2 class="brand-text" id="text">China Bar</h2>
+                    </a></li>
+                <li class="nav-item nav-toggle"><a class="nav-link modern-nav-toggle pr-0" data-toggle="collapse"><i class="fa fa-times-circle d-block d-xl-none font-medium-4 toggle-icon"></i><i class="toggle-icon feather icon-disc font-medium-4 d-none d-xl-block collapse-toggle-icon primary" data-ticon="icon-disc"></i></a></li>
+            </ul> 
+        </div>
+        <!-- Horizontal menu content-->
+        <div class="navbar-container main-menu-content" data-menu="menu-container">
+            <!-- include ../../../includes/mixins-->
+            <ul class="nav" id="main-menu-navigation" data-menu="menu-navigation">
+                <li>
+                    <a href="/" class="text"><i class="fa fa-arrow-left"></i>Página inicial</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+  </div>
+<!-- BEGIN: Header-->   
+<div class="app-content content">
+    <div class="content-overlay"></div>
+    <div class="header-navbar-shadow"></div>
+    <div class="content-wrapper">
+        <div class="content-header row">
+        </div>
+        <div class="content-body">
+            <br><br><br>
+            <section id="dashboard-analytics">
+                <div class="row">
+                <div class="col-xl-2 col-md-2 col-sm-12"></div>
+                <div class="col-xl-8 col-md-8 col-sm-12 profile-card-1">
+                    <div class="card">
+                        <div class="card-content">
+                            <div class="card-body text-center">
+                                <p id="text">
+                                    <b style="font-size: 23px;color: orange;">{{detalharCliente.conta.nomeCliente|title}}</b>
+                                </p>
+                                <p id="text">Dívida de <strong style="color: orange;">{{detalharCliente.divida}}</strong> R$
+                                    &nbsp;&nbsp;<a href="/editar-Divida/{{detalharCliente.id}}"><i class="fa fa-edit" data-toggle="tooltip" data-placement="top" title="Editar dívida"></i></a>
+                                </p>
+                                <hr class="my-2">
+                                <section id="collapsible">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                                <div class="card-content">
+                                                    <div class="card-body">
+                                                            <div class="card collapse-header">
+                                                                <div id="headingCollapse4" class="card-header" data-toggle="collapse" role="button" data-target="#collapse4" aria-expanded="false" aria-controls="collapse4">
+                                                                        <p id="text"><i class="fa fa-money"></i>&nbsp;<b style="color: orange;font-size: 21px;">Clique aqui</b>, e veja o detalhe da dívida</p>                                    
+                                                                </div>
+                                                                <div id="collapse4" role="tabpanel" aria-labelledby="headingCollapse4" class="collapse" aria-expanded="false">
+                                                                    <div class="card-content">
+                                                                        <div class="card-body">
+                                                                            <p style="font-size: 19px;text-align: left;color: white;font-family: Times New Roman;"><i class="fa fa-check-square-o"></i>&nbsp;{{detalharCliente.descricao}}</p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-2 col-md-6 col-sm-12"></div>
+            </div>
+            </section>
+        </div>
+    </div>
+</div>
+{%endblock%}

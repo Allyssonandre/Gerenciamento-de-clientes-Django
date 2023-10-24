@@ -1,0 +1,254 @@
+{% extends "./Base/base.html" %}
+{% load static %}
+{% block content %}
+  <!-- BEGIN: Main Menu-->
+  <div class="horizontal-menu-wrapper">
+    <div class="header-navbar navbar-expand-sm navbar navbar-horizontal floating-nav navbar-dark navbar-without-dd-arrow navbar-shadow menu-border" role="navigation" data-menu="menu-wrapper">
+        <div class="navbar-header">
+            <ul class="nav navbar-nav flex-row">
+                <li class="nav-item mr-auto"><a class="navbar-brand" href="#">
+                        <div class="brand-logo"></div>
+                        <h2 class="brand-text" id="text">China Bar</h2>
+                    </a></li>
+                <li class="nav-item nav-toggle"><a class="nav-link modern-nav-toggle pr-0" data-toggle="collapse"><i class="fa fa-times-circle d-block d-xl-none font-medium-4 toggle-icon"></i><i class="toggle-icon feather icon-disc font-medium-4 d-none d-xl-block collapse-toggle-icon primary" data-ticon="icon-disc"></i></a></li>
+            </ul> 
+        </div>
+        <!-- Horizontal menu content-->
+        <div class="navbar-container main-menu-content" data-menu="menu-container">
+            <!-- include ../../../includes/mixins-->
+            <ul class="nav" id="main-menu-navigation" data-menu="menu-navigation">
+                <li>
+                    <a href="#clientes" class="text"><i class="fa fa-users"></i>Clientes que estão devendo</a>
+                </li>
+                <li><a href="#formulario" class="text"><i class="fa fa-pencil"></i>Criar cliente</a></li>
+            </ul>
+        </div>
+    </div>
+  </div>
+<!-- BEGIN: Header-->   
+<div class="app-content content">
+    <div class="content-overlay"></div>
+    <div class="header-navbar-shadow"></div>
+    <div class="content-wrapper">
+        <div class="content-header row">
+        </div>
+        <div class="content-body">
+            <!-- Dashboard Analytics Start -->
+            <section id="dashboard-analytics">
+                  <div class="row">
+
+                    <div class="col-lg-3 col-md-3 col-12">
+                        <div class="card">
+                            <div class="card-header mx-auto">
+                                <div class="avatar avatar-xl">
+                                    <img class="img-fluid" src="{% static 'img/fogo.jpg'%}" alt="img placeholder">
+                                </div>
+                            </div>
+                            <div class="card-content">
+                                <div class="card-body text-center">
+                                    <p id="text">China Bar</p>
+                                    <p id="text">Administrador</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-12">
+                            <div class="card text-white bg-primary mb-3">
+                                <div class="card-body text-center">
+                                    <i class="fa fa-calendar" style="font-size: 60px;color: white;"></i>
+                                    <p id="text">Data de hoje</p>
+                                    <script language=javascript type="text/javascript">
+                                        now = new Date
+                                        document.write ("Hoje é " + now.getDate() + " de " + now.getMonth() + " de " + now.getFullYear() )
+                                    </script>
+                                </div>
+                                <br><br>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-12">
+                        <div class="card bg-danger">
+                            <div class="card-content">
+                                <div class="card-body text-center">
+                                    <i class="fa fa-users" style="font-size: 60px;color: white;"></i>
+                                    <br><br>
+                                    <p id="text">Você tem {{qclientes}} cliente(s)</p>
+                                    <br><br>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-12">
+                        <div class="card bg-success">
+                            <div class="card-content">
+                                <div class="card-body text-center">
+                                    <i class="fa fa-usd" style="font-size: 60px;color: white;"></i>
+                                    <br><br>
+                                    <p id="text">Dívidas em aberto <b style="color: red;">{{dividasAbertas}}</b> </p>
+                                    <br><br>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+                  <div class="divider divider-primary">
+                    <div class="divider-text" id="text">Clientes</div>
+                  </div>
+                  <br>
+                  <div class="container">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-3 col-12" >
+                            <div class="search-bar">
+                                <form>
+                                    <fieldset class="form-group position-relative has-icon-left">
+                                        <input type="text" name="busca" class="form-control round" id="searchbar" placeholder="Cliente ?">
+                                        <div class="form-control-position">
+                                            <i class="fa fa-search px-1"></i>
+                                        </div>
+                                    </fieldset>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-3 col-12" >
+                            <a href="Contas/"><button type="button" class="btn btn-outline-success mr-1 mb-1">Mais detalhes de dívidas em aberto</button></a>
+                        </div>
+                        <div class="col-lg-1 col-md-3 col-12" >
+                         
+                        </div>
+                        <div class="col-lg-2 col-md-3 col-12" ></div>
+                    </div>
+                </div>
+                <div class="row">
+                {%if clientes%}
+                {%for c in clientes%}
+                    <div class="col-lg-3 col-md-3 col-12" >
+                        <div class="card" id="clientes">
+                            <div class="card-header d-flex flex-column align-items-start pb-0">
+                                <p class="mb-0" id="text"><i class="fa fa-user font-medium-5"></i>
+                                    {{c.nomeCliente|title}} &nbsp;| <a href="/deleta/{{c.id}}" data-toggle="tooltip" data-placement="top" title="Excluir o cliente ?">Excluir cliente</a>&nbsp;|
+                                    <a href="/criar-divida/{{c.id}}">
+                                        <i class="fa fa-pencil-square" data-toggle="tooltip" data-placement="top" title="Criar dívida" style="font-size: 20px;">
+                                        </i>
+                                    </a>
+                                </p>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                {%endfor%}
+                </div>
+                {%else%}
+                <div class="alert alert-success alert-dismissible fade show col-12" role="alert">
+                    <p id="text">
+                        Nenhum cliente cadastrado
+                    </p>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true"><i class="fa fa-times"></i></span>
+                    </button>
+                </div>              
+                {%endif%}
+                <!-- Todos as dívidas abertas -->
+                <div class="col-sm-12">
+                <div class="divider divider-primary">
+                    <div class="divider-text" id="text">Dívidas em aberto</div>
+                </div>
+            </div>
+                <br>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-3 col-12" >
+                            <div class="search-bar">
+                                <form>
+                                    <fieldset class="form-group position-relative has-icon-left">
+                                        <input type="text" name="pesquisa" class="form-control round" id="searchbar" placeholder="Nome do cliente da dívida ?">
+                                        <div class="form-control-position">
+                                            <i class="fa fa-search px-1"></i>
+                                        </div>
+                                    </fieldset>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-3 col-12" >
+                        </div>
+                        <div class="col-lg-1 col-md-3 col-12" >
+                         
+                        </div>
+                        <div class="col-lg-2 col-md-3 col-12" ></div>
+                    </div>
+                </div>
+                <div class="row">
+                    {%if conta%}
+                    {%for d in conta%}
+                        <div class="col-lg-3 col-md-3 col-12" >
+                            <div class="card" id="clientes">
+                                <div class="card-header d-flex flex-column align-items-start pb-0">
+                                    <p class="mb-0" id="text" style="padding: 0;"><i class="fa fa-user font-medium-5"></i>
+                                        {{d.conta.nomeCliente|title}} &nbsp;|
+                                        <a href="/deletando-Divida/{{d.id}}"><button type="button" class="btn btn-outline-danger" data-toggle="tooltip" data-placement="top" title="Excluir dívida" id="type-error"><i class="fa fa-trash"></i></button></a>
+                                        <a href="/detalhecliente/{{d.id}}"><button type="button" class="btn btn-outline-info" data-toggle="tooltip" data-placement="top" title="Detalhes da dívida"><i class="fa fa-eye"></i></button></a>
+                                        
+                                    </p>
+                                    <br>
+                                </div>
+                            </div>
+                        </div>
+                    {%endfor%}
+                    </div>
+                    {%else%}
+                    <div class="alert alert-success alert-dismissible fade show col-12" role="alert">
+                        <p id="text">
+                            Nenhuma dívida em aberto
+                        </p>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true"><i class="fa fa-times"></i></span>
+                        </button>
+                    </div>              
+                    {%endif%}
+
+                <!--Fim-->
+                <div class="col-sm-12">
+                    <div class="divider divider-primary">
+                        <div class="divider-text" id="text">Criar cliente</div>
+                    </div>
+                    <br>
+                </div>
+                <div class="container">
+                <div class="row">
+                    <div class="col-md-4 col-12"></div>
+                    <div class="col-md-4 col-12">
+                        <div class="card" id="formulario">
+                            <div class="card-header">
+                                <p id="text"><i class="fa fa-check-circle"></i>&nbsp;Criar cliente</p>
+                            </div>
+                            <div class="card-content">
+                                <div class="card-body">
+                                    <form method="post" enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                        <div class="form-body">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div class="form-label-group position-relative has-icon-left">
+                                                        <input type="text" name="nomeCliente" placeholder="Nome do cliente" class="form-control" required>
+                                                        <div class="form-control-position">
+                                                            <i class="fa fa-pencil"></i>
+                                                        </div>
+                                                        <label for="first-name-floating-icon">Nome completo</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12">
+                                                    <button type="submit" class="btn btn-success text" id="outside-click" data-dismiss="modal" value="nomeCliente"><i class="fa fa-sign-in"></i>&nbsp;Registrar</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-12"></div>
+                </div>
+            </div>
+            </section>
+        </div>
+    </div>
+</div>
+{%endblock%}
